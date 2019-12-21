@@ -72,7 +72,8 @@ public class ShoppingCart {
         if (items.size() == 0)
             return "No items.";
         double total = 0.00;
-        sb.append(" # Item Price Quan. Discount Total\n");
+        String header = " # Item                   Price Quan. Discount      Total\n";
+        sb.append(header);
         sb.append("---------------------------------------------------------\n");
         for (int i = 0; i < items.size(); i++) {
             Item item = (Item) items.get(i);
@@ -84,10 +85,10 @@ public class ShoppingCart {
             sb.append(" ");
             appendPaddedRight(sb, MONEY.format(item.price), 7);
             sb.append(" ");
-            appendPaddedRight(sb, String.valueOf(item.quantity), 4);
+            appendPaddedRight(sb, String.valueOf(item.quantity), 5);
             sb.append(" ");
             if (discount == 0)
-                sb.append(" -");
+                appendPaddedRight(sb, "-", 8);
             else {
                 appendPaddedRight(sb, String.valueOf(discount), 7);
                 sb.append("%");
@@ -100,7 +101,8 @@ public class ShoppingCart {
         sb.append("---------------------------------------------------------\n");
         appendPaddedRight(sb, String.valueOf(items.size()), 2);
         sb.append(" ");
-        appendPaddedRight(sb, MONEY.format(total), 10);
+        appendPaddedRight(sb, MONEY.format(total), header.length() - 4);
+
         return sb.toString();
     }
 
@@ -173,4 +175,8 @@ public class ShoppingCart {
      * Container for added items
      */
     private List items = new ArrayList();
+
+    public List getItems() {
+        return items;
+    }
 }
