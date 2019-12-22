@@ -95,7 +95,7 @@ public class ShoppingCart2 {
                     MONEY.format(itemTotal)
             });
         }
-        String[] footer = {String.valueOf(index), "", "", "", "",
+        String[] footer = {String.valueOf(items.size()), "", "", "", "",
                 MONEY.format(getTotal())};
 
         int[] width = getColumnsWidths(header, lines, footer);
