@@ -10,9 +10,7 @@ import java.util.List;
  * Containing items and calculating price.
  */
 public class ShoppingCart2 {
-    public static enum ItemType {NEW, REGULAR, SECOND_FREE, SALE}
-
-    ;
+    public static enum ItemType {NEW, REGULAR, SECOND_FREE, SALE};
 
     /**
      * Tests all class methods.
@@ -43,12 +41,7 @@ public class ShoppingCart2 {
             throw new IllegalArgumentException("Illegal price");
         if (quantity <= 0)
             throw new IllegalArgumentException("Illegal quantity");
-        Item item = new Item();
-        item.title = title;
-        item.price = price;
-        item.quantity = quantity;
-        item.type = type;
-        items.add(item);
+        items.add(new Item(title, price, quantity, type));
     }
 
     /**
@@ -201,6 +194,13 @@ public class ShoppingCart2 {
         double price;
         int quantity;
         ItemType type;
+
+        public Item(String title, double price, int quantity, ItemType type) {
+            this.title = title;
+            this.price = price;
+            this.quantity = quantity;
+            this.type = type;
+        }
     }
 
     /**
