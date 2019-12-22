@@ -10,6 +10,19 @@ import java.util.List;
  * Containing items and calculating price.
  */
 public class ShoppingCart2 {
+    private static final NumberFormat MONEY;
+    /**
+     * Container for added items
+     */
+    private List<Item2> items = new ArrayList<Item2>();
+
+
+    static {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator('.');
+        MONEY = new DecimalFormat("$#.00", symbols);
+    }
+
     /**
      * Tests all class methods.
      */
@@ -116,15 +129,6 @@ public class ShoppingCart2 {
         return sb.toString();
     }
 
-    // --- private section -----------------------------------------------------
-    private static final NumberFormat MONEY;
-
-    static {
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-        symbols.setDecimalSeparator('.');
-        MONEY = new DecimalFormat("$#.00", symbols);
-    }
-
     /**
      * Appends to sb formatted value.
      * Trims string if its length > width.
@@ -177,9 +181,4 @@ public class ShoppingCart2 {
         }
         return discount;
     }
-
-    /**
-     * Container for added items
-     */
-    private List<Item2> items = new ArrayList<Item2>();
 }
