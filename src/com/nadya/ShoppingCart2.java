@@ -109,33 +109,30 @@ public class ShoppingCart2 {
             lineLength += w;
         }
         StringBuilder sb = new StringBuilder();
-        // header
-        for (int i = 0; i < header.length; i++) {
-            appendFormatted(sb, header[i], align[i], width[i]);
-        }
+        buildLine(sb, header, align, width);
         sb.append("\n");
-        // separator
-        for (int i = 0; i < lineLength; i++) {
-            sb.append("-");
-        }
+        buildSeparator(sb, lineLength);
         sb.append("\n");
-        // lines
         for (String[] line : lines) {
-            for (int i = 0; i < line.length; i++) {
-                appendFormatted(sb, line[i], align[i], width[i]);
-            }
+            buildLine(sb, line, align, width);
             sb.append("\n");
         }
-        // separator
-        for (int i = 0; i < lineLength; i++) {
-            sb.append("-");
-        }
+        buildSeparator(sb, lineLength);
         sb.append("\n");
-        // footer
-        for (int i = 0; i < footer.length; i++) {
-            appendFormatted(sb, footer[i], align[i], width[i]);
-        }
+        buildLine(sb, footer, align, width);
         return sb.toString();
+    }
+
+    private void buildSeparator(StringBuilder stringBuilder, int lineLength) {
+        for (int i = 0; i < lineLength; i++) {
+            stringBuilder.append("-");
+        }
+    }
+
+    private void buildLine(StringBuilder stringBuilder, String[] columns, int[] align, int[] width) {
+        for (int i = 0; i < columns.length; i++) {
+            appendFormatted(stringBuilder, columns[i], align[i], width[i]);
+        }
     }
 
     /**
