@@ -16,7 +16,6 @@ public class ShoppingCart2 {
      */
     private List<Item2> items = new ArrayList<Item2>();
 
-
     static {
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setDecimalSeparator('.');
@@ -49,6 +48,15 @@ public class ShoppingCart2 {
         items.add(new Item2(title, price, quantity, type));
     }
 
+    public double getTotal() {
+        double total = 0.00;
+        for (Item2 item : items) {
+            total += item.getItemTotal();
+        }
+
+        return total;
+    }
+
     /**
      * Formats shopping price.
      *
@@ -73,7 +81,7 @@ public class ShoppingCart2 {
         String[] header = {"#", "Item", "Price", "Quan.", "Discount", "Total"};
         int[] align = new int[]{1, -1, 1, 1, 1, 1};
         // formatting each line
-        double total = 0.00;
+
         int index = 0;
         for (Item2 item : items) {
             int discount = item.calculateDiscount();
@@ -86,10 +94,9 @@ public class ShoppingCart2 {
                     (discount == 0) ? "-" : (discount + "%"),
                     MONEY.format(itemTotal)
             });
-            total += itemTotal;
         }
         String[] footer = {String.valueOf(index), "", "", "", "",
-                MONEY.format(total)};
+                MONEY.format(getTotal())};
 
         int[] width = getColumnsWidths(header, lines, footer);
         int lineLength = width.length - 1;
