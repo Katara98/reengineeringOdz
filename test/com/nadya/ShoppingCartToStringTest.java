@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.endsWith;
+import static org.hamcrest.CoreMatchers.startsWith;
 import static org.junit.Assert.*;
 
 public class ShoppingCartToStringTest {
@@ -74,6 +75,22 @@ public class ShoppingCartToStringTest {
     }
 
     @Test
+    public void testPaddedLeftShortTitles() {
+        List items = normalCart.getItems();
+        int headerFirstCharIndex = normalCartString.indexOf(Column.TITLE.getHeader());
+        int headerLastCharIndex = headerFirstCharIndex + Column.TITLE.getWidth();
+
+        String[] lines = normalCartString.split("\n");
+        for (int i = headerLinesCount; i < lines.length - 2; i++) {
+            Item item = (Item)items.get(i - headerLinesCount);
+            if (item.title.length() <= Column.TITLE.getWidth()) {
+                String columnValue = lines[i].substring(headerFirstCharIndex, headerLastCharIndex);
+                assertThat(columnValue, startsWith(item.title));
+            }
+        }
+    }
+
+    @Test
     public void testDashInsteadZeroDiscount() {
         List items = normalCart.getItems();
         int headerLastCharIndex = getColumnPaddedRightLastCharIndex(Column.DISCOUNT);
@@ -83,8 +100,24 @@ public class ShoppingCartToStringTest {
         for (int i = headerLinesCount; i < lines.length - 2; i++) {
             Item item = (Item)items.get(i - headerLinesCount);
             if (ShoppingCart.calculateDiscount(item) == 0) {
-                String columnValue = lines[i].substring(headerFirstCharIndex, headerLastCharIndex);
+                String columnValue = lines[i].substring(headerFirstCharIndex, headerLastCharIndex).trim();
                 assertThat(columnValue, endsWith("-"));
+            }
+        }
+    }
+
+    @Test
+    public void testDiscountEndsWithPercent() {
+        List items = normalCart.getItems();
+        int headerLastCharIndex = getColumnPaddedRightLastCharIndex(Column.DISCOUNT);
+        int headerFirstCharIndex = getColumnPaddedRightFirstCharIndex(Column.DISCOUNT, headerLastCharIndex);
+
+        String[] lines = normalCartString.split("\n");
+        for (int i = headerLinesCount; i < lines.length - 2; i++) {
+            Item item = (Item)items.get(i - headerLinesCount);
+            if (ShoppingCart.calculateDiscount(item) > 0) {
+                String columnValue = lines[i].substring(headerFirstCharIndex, headerLastCharIndex).trim();
+                assertThat(columnValue, endsWith("%"));
             }
         }
     }
