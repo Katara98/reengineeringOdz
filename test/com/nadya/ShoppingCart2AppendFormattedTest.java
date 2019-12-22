@@ -6,17 +6,17 @@ import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
 import java.util.Collection;
-
+import static com.nadya.ShoppingCart2Formatter.Align;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class ShoppingCart2AppendFormattedTest {
     private String value;
-    private int align;
+    private ShoppingCart2Formatter.Align align;
     private int width;
     private String expected;
 
-    public ShoppingCart2AppendFormattedTest(String value, int align, int width, String expected) {
+    public ShoppingCart2AppendFormattedTest(String value, Align align, int width, String expected) {
         this.value = value;
         this.align = align;
         this.width = width;
@@ -25,11 +25,11 @@ public class ShoppingCart2AppendFormattedTest {
     @Parameterized.Parameters
     public static Collection a() {
         return Arrays.asList(new Object[][]{
-                { "SomeLine", 0, 14, "   SomeLine    " },
-                { "SomeLine", 0, 15, "   SomeLine     " },
-                { "SomeLine", 0, 5, "SomeL " },
-                { "SomeLine", 1, 15, "       SomeLine " },
-                { "SomeLine", -1, 15, "SomeLine        " }
+                { "SomeLine", Align.CENTER, 14, "   SomeLine    " },
+                { "SomeLine", Align.CENTER, 15, "   SomeLine     " },
+                { "SomeLine", Align.CENTER, 5, "SomeL " },
+                { "SomeLine", Align.RIGHT, 15, "       SomeLine " },
+                { "SomeLine", Align.LEFT, 15, "SomeLine        " }
         });
     }
     @Test

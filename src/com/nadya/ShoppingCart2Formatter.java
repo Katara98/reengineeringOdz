@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCart2Formatter {
+    enum Align {
+        LEFT,
+        RIGHT,
+        CENTER;
+    }
     private static final NumberFormat MONEY;
 
     static {
@@ -37,7 +42,7 @@ public class ShoppingCart2Formatter {
         }
 
         String[] header = {"#", "Item", "Price", "Quan.", "Discount", "Total"};
-        int[] align = new int[]{1, -1, 1, 1, 1, 1};
+        Align[] align = new Align[]{Align.RIGHT, Align.LEFT, Align.RIGHT, Align.RIGHT, Align.RIGHT, Align.RIGHT};
         List<String[]> lines = getLines(shoppingCart.getItems());
         String[] footer = {String.valueOf(shoppingCart.getItems().size()), "", "", "", "", MONEY.format(shoppingCart.getTotal())};
 
@@ -82,15 +87,15 @@ public class ShoppingCart2Formatter {
      * Appends to sb formatted value.
      * Trims string if its length > width.
      *
-     * @param align -1 for align left, 0 for center and +1 for align right.
+     * @param align May be left, center or right.
      */
-    public static void appendFormatted(StringBuilder sb, String value, int align, int width) {
+    public static void appendFormatted(StringBuilder sb, String value, Align align, int width) {
         if (value.length() > width) {
             value = value.substring(0, width);
         }
-        int before = (align == 0)
+        int before = (align == Align.CENTER)
                 ? (width - value.length()) / 2
-                : (align == -1) ? 0 : width - value.length();
+                : (align == Align.LEFT) ? 0 : width - value.length();
         int after = width - value.length() - before;
         while (before-- > 0) {
             sb.append(" ");
@@ -135,7 +140,7 @@ public class ShoppingCart2Formatter {
         }
     }
 
-    private static void buildLine(StringBuilder stringBuilder, String[] columns, int[] align, int[] width) {
+    private static void buildLine(StringBuilder stringBuilder, String[] columns, Align[] align, int[] width) {
         for (int i = 0; i < columns.length; i++) {
             appendFormatted(stringBuilder, columns[i], align[i], width[i]);
         }
