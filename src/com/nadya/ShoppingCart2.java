@@ -77,7 +77,7 @@ public class ShoppingCart2 {
         int index = 0;
         for (Item2 item : items) {
             int discount = item.calculateDiscount();
-            double itemTotal = item.getPrice() * item.getQuantity() * (100.00 - discount) / 100.00;
+            double itemTotal = item.getItemTotal();
             lines.add(new String[]{
                     String.valueOf(++index),
                     item.getTitle(),

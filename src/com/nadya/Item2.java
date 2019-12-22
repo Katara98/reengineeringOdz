@@ -95,4 +95,8 @@ public class Item2 {
 
         return discount;
     }
+
+    public double getItemTotal() {
+        return getPrice() * getQuantity() * (100.00 - calculateDiscount()) / 100.00;
+    }
 }
