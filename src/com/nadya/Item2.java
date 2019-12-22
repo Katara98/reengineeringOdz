@@ -5,6 +5,7 @@ package com.nadya;
  */
 public class Item2 {
     public enum ItemType {NEW, REGULAR, SECOND_FREE, SALE}
+
     private String title;
     private double price;
     private int quantity;
@@ -87,11 +88,9 @@ public class Item2 {
                 break;
         }
 
-        if (discount < 80) {
-            discount += quantity / 10;
-            if (discount > 80) {
-                discount = 80;
-            }
+        discount += quantity / 10;
+        if (discount > 80) {
+            discount = 80;
         }
 
         return discount;
