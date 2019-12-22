@@ -35,12 +35,6 @@ public class ShoppingCart2 {
      * @throws IllegalArgumentException if some value is wrong
      */
     public void addItem(String title, double price, int quantity, ItemType type) {
-        if (title == null || title.length() == 0 || title.length() > 32)
-            throw new IllegalArgumentException("Illegal title");
-        if (price < 0.01)
-            throw new IllegalArgumentException("Illegal price");
-        if (quantity <= 0)
-            throw new IllegalArgumentException("Illegal quantity");
         items.add(new Item(title, price, quantity, type));
     }
 
@@ -207,6 +201,10 @@ public class ShoppingCart2 {
         }
 
         public void setTitle(String title) {
+            if (title == null || title.length() == 0 || title.length() > 32) {
+                throw new IllegalArgumentException("Illegal title");
+            }
+
             this.title = title;
         }
 
@@ -215,6 +213,10 @@ public class ShoppingCart2 {
         }
 
         public void setPrice(double price) {
+            if (price < 0.01) {
+                throw new IllegalArgumentException("Illegal price");
+            }
+
             this.price = price;
         }
 
@@ -223,6 +225,10 @@ public class ShoppingCart2 {
         }
 
         public void setQuantity(int quantity) {
+            if (quantity <= 0) {
+                throw new IllegalArgumentException("Illegal quantity");
+            }
+
             this.quantity = quantity;
         }
 
