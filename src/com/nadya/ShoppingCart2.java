@@ -83,7 +83,7 @@ public class ShoppingCart2 {
                     item.getTitle(),
                     MONEY.format(item.getPrice()),
                     String.valueOf(item.getQuantity()),
-                    (discount == 0) ? "-" : (String.valueOf(discount) + "%"),
+                    (discount == 0) ? "-" : (discount + "%"),
                     MONEY.format(itemTotal)
             });
             total += itemTotal;
@@ -115,16 +115,16 @@ public class ShoppingCart2 {
         int[] width = new int[]{0, 0, 0, 0, 0, 0};
         for (String[] line : lines) {
             for (int i = 0; i < line.length; i++) {
-                width[i] = (int) Math.max(width[i], line[i].length());
+                width[i] = Math.max(width[i], line[i].length());
             }
         }
 
         for (int i = 0; i < header.length; i++) {
-            width[i] = (int) Math.max(width[i], header[i].length());
+            width[i] = Math.max(width[i], header[i].length());
         }
 
         for (int i = 0; i < footer.length; i++) {
-            width[i] = (int) Math.max(width[i], footer[i].length());// line length
+            width[i] = Math.max(width[i], footer[i].length());// line length
         }
 
         return width;
