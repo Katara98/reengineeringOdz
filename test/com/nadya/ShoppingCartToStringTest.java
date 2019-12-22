@@ -115,7 +115,7 @@ public class ShoppingCartToStringTest {
         String[] lines = normalCartString.split("\n");
         for (int i = headerLinesCount; i < lines.length - 2; i++) {
             Item item = (Item)items.get(i - headerLinesCount);
-            if (ShoppingCart.calculateDiscount(item) == 0) {
+            if (ShoppingCart.calculateDiscount(item) > 0) {
                 String columnValue = lines[i].substring(headerFirstCharIndex, headerLastCharIndex).trim();
                 assertThat(columnValue, endsWith("%"));
             }

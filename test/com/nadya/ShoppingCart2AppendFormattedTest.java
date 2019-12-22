@@ -35,7 +35,7 @@ public class ShoppingCart2AppendFormattedTest {
     @Test
     public void testAppendFormatted() {
         StringBuilder sb = new StringBuilder();
-        ShoppingCart2.appendFormatted(sb, value, align, width);
+        ShoppingCart2Formatter.appendFormatted(sb, value, align, width);
         assertEquals(expected, sb.toString());
     }
 }
