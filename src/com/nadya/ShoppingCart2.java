@@ -77,26 +77,11 @@ public class ShoppingCart2 {
         if (items.size() == 0) {
             return "No items.";
         }
-        List<String[]> lines = new ArrayList<String[]>();
+
         String[] header = {"#", "Item", "Price", "Quan.", "Discount", "Total"};
         int[] align = new int[]{1, -1, 1, 1, 1, 1};
-        // formatting each line
-
-        int index = 0;
-        for (Item2 item : items) {
-            int discount = item.calculateDiscount();
-            double itemTotal = item.getItemTotal();
-            lines.add(new String[]{
-                    String.valueOf(++index),
-                    item.getTitle(),
-                    MONEY.format(item.getPrice()),
-                    String.valueOf(item.getQuantity()),
-                    (discount == 0) ? "-" : (discount + "%"),
-                    MONEY.format(itemTotal)
-            });
-        }
-        String[] footer = {String.valueOf(items.size()), "", "", "", "",
-                MONEY.format(getTotal())};
+        List<String[]> lines = getLines();
+        String[] footer = {String.valueOf(items.size()), "", "", "", "", MONEY.format(getTotal())};
 
         int[] width = getColumnsWidths(header, lines, footer);
         int lineLength = width.length - 1;
@@ -115,7 +100,27 @@ public class ShoppingCart2 {
         buildSeparator(sb, lineLength);
         sb.append("\n");
         buildLine(sb, footer, align, width);
+
         return sb.toString();
+    }
+
+    private List<String[]> getLines() {
+        List<String[]> lines = new ArrayList<>();
+        int index = 0;
+        for (Item2 item : items) {
+            int discount = item.calculateDiscount();
+            double itemTotal = item.getItemTotal();
+            lines.add(new String[]{
+                    String.valueOf(++index),
+                    item.getTitle(),
+                    MONEY.format(item.getPrice()),
+                    String.valueOf(item.getQuantity()),
+                    (discount == 0) ? "-" : (discount + "%"),
+                    MONEY.format(itemTotal)
+            });
+        }
+
+        return lines;
     }
 
     private int[] getColumnsWidths(String[] header, List<String[]> lines, String[] footer) {
