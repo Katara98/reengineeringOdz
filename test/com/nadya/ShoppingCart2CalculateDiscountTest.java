@@ -12,32 +12,30 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class ShoppingCart2CalculateDiscountTest {
-    private ItemType itemType;
-    private int quantity;
+    private Item2 item;
     private int expectedDiscount;
 
-    public ShoppingCart2CalculateDiscountTest(ItemType itemType, int quantity, int expectedDiscount) {
-        this.itemType = itemType;
-        this.quantity = quantity;
+    public ShoppingCart2CalculateDiscountTest(Item2 item, int expectedDiscount) {
+        this.item = item;
         this.expectedDiscount = expectedDiscount;
     }
 
     @Parameterized.Parameters
     public static Collection a() {
         return Arrays.asList(new Object[][]{
-                { ItemType.NEW, 5, 0 },
-                { ItemType.SECOND_FREE, 1, 0 },
-                { ItemType.SECOND_FREE, 4, 50 },
-                { ItemType.SALE, 5, 70 },
-                { ItemType.REGULAR, 5, 0 },
-                { ItemType.REGULAR, 20, 2 },
-                { ItemType.REGULAR, 500, 50 },
-                { ItemType.REGULAR, 1000, 80 },
+                { new Item2("Apple", 0.99, 5, ItemType.NEW), 0 },
+                { new Item2("Banana", 20.00, 1, ItemType.SECOND_FREE), 0 },
+                { new Item2("Banana", 20.00, 4, ItemType.SECOND_FREE), 50 },
+                { new Item2("Mango", 17.20, 5, ItemType.SALE), 70 },
+                { new Item2("Egg", 2.00, 5, ItemType.REGULAR), 0 },
+                { new Item2("Egg", 2.00, 20, ItemType.REGULAR), 2 },
+                { new Item2("Apple", 0.99, 500, ItemType.REGULAR), 50 },
+                { new Item2("Apple", 0.99, 1000, ItemType.REGULAR), 80 }
         });
     }
 
     @Test
     public void testCalculateDiscount() {
-        assertEquals(expectedDiscount, ShoppingCart2.calculateDiscount(itemType, quantity));
+        assertEquals(expectedDiscount, item.calculateDiscount());
     }
 }
