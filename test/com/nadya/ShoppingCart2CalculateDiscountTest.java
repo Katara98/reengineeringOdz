@@ -6,17 +6,17 @@ import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
 import java.util.Collection;
-import static com.nadya.ShoppingCart2.ItemType;
+import static com.nadya.ShoppingCart2.Item.ItemType;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class ShoppingCart2CalculateDiscountTest {
-    private ShoppingCart2.ItemType itemType;
+    private ItemType itemType;
     private int quantity;
     private int expectedDiscount;
 
-    public ShoppingCart2CalculateDiscountTest(ShoppingCart2.ItemType itemType, int quantity, int expectedDiscount) {
+    public ShoppingCart2CalculateDiscountTest(ItemType itemType, int quantity, int expectedDiscount) {
         this.itemType = itemType;
         this.quantity = quantity;
         this.expectedDiscount = expectedDiscount;

@@ -10,18 +10,16 @@ import java.util.List;
  * Containing items and calculating price.
  */
 public class ShoppingCart2 {
-    public static enum ItemType {NEW, REGULAR, SECOND_FREE, SALE};
-
     /**
      * Tests all class methods.
      */
     public static void main(String[] args) {
         // TODO: add tests here
         ShoppingCart2 cart = new ShoppingCart2();
-        cart.addItem("Apple", 0.99, 5, ItemType.NEW);
-        cart.addItem("Banana", 20.00, 4, ItemType.SECOND_FREE);
-        cart.addItem("A long piece of toilet paper", 17.20, 1, ItemType.SALE);
-        cart.addItem("Nails", 2.00, 500, ItemType.REGULAR);
+        cart.addItem("Apple", 0.99, 5, Item.ItemType.NEW);
+        cart.addItem("Banana", 20.00, 4, Item.ItemType.SECOND_FREE);
+        cart.addItem("A long piece of toilet paper", 17.20, 1, Item.ItemType.SALE);
+        cart.addItem("Nails", 2.00, 500, Item.ItemType.REGULAR);
         System.out.println(cart.formatTicket());
     }
 
@@ -34,7 +32,7 @@ public class ShoppingCart2 {
      * @param type     item type
      * @throws IllegalArgumentException if some value is wrong
      */
-    public void addItem(String title, double price, int quantity, ItemType type) {
+    public void addItem(String title, double price, int quantity, Item.ItemType type) {
         items.add(new Item(title, price, quantity, type));
     }
 
@@ -156,7 +154,7 @@ public class ShoppingCart2 {
      * For each full 10 not NEW items item gets additional 1% discount,
      * but not more than 80% total
      */
-    public static int calculateDiscount(ItemType type, int quantity) {
+    public static int calculateDiscount(Item.ItemType type, int quantity) {
         int discount = 0;
         switch (type) {
             case NEW:
@@ -183,7 +181,8 @@ public class ShoppingCart2 {
     /**
      * item info
      */
-    private static class Item {
+    public static class Item {
+        public enum ItemType {NEW, REGULAR, SECOND_FREE, SALE}
         private String title;
         private double price;
         private int quantity;
