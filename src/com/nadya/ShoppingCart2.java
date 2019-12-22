@@ -84,10 +84,7 @@ public class ShoppingCart2 {
         String[] footer = {String.valueOf(items.size()), "", "", "", "", MONEY.format(getTotal())};
 
         int[] width = getColumnsWidths(header, lines, footer);
-        int lineLength = width.length - 1;
-        for (int w : width) {
-            lineLength += w;
-        }
+        int lineLength = getLineLength(width);
         StringBuilder sb = new StringBuilder();
         buildLine(sb, header, align, width);
         sb.append("\n");
@@ -102,6 +99,14 @@ public class ShoppingCart2 {
         buildLine(sb, footer, align, width);
 
         return sb.toString();
+    }
+
+    private int getLineLength(int[] width) {
+        int lineLength = width.length - 1;
+        for (int w : width) {
+            lineLength += w;
+        }
+        return lineLength;
     }
 
     private List<String[]> getLines() {
