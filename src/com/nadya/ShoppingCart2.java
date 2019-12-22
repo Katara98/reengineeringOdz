@@ -90,20 +90,8 @@ public class ShoppingCart2 {
         }
         String[] footer = {String.valueOf(index), "", "", "", "",
                 MONEY.format(total)};
-        // formatting table
-        // column max length
-        int[] width = new int[]{0, 0, 0, 0, 0, 0};
-        for (String[] line : lines) {
-            for (int i = 0; i < line.length; i++) {
-                width[i] = (int) Math.max(width[i], line[i].length());
-            }
-        }
-        for (int i = 0; i < header.length; i++) {
-            width[i] = (int) Math.max(width[i], header[i].length());
-        }
-        for (int i = 0; i < footer.length; i++) {
-            width[i] = (int) Math.max(width[i], footer[i].length());// line length
-        }
+
+        int[] width = getColumnsWidths(header, lines, footer);
         int lineLength = width.length - 1;
         for (int w : width) {
             lineLength += w;
@@ -121,6 +109,25 @@ public class ShoppingCart2 {
         sb.append("\n");
         buildLine(sb, footer, align, width);
         return sb.toString();
+    }
+
+    private int[] getColumnsWidths(String[] header, List<String[]> lines, String[] footer) {
+        int[] width = new int[]{0, 0, 0, 0, 0, 0};
+        for (String[] line : lines) {
+            for (int i = 0; i < line.length; i++) {
+                width[i] = (int) Math.max(width[i], line[i].length());
+            }
+        }
+
+        for (int i = 0; i < header.length; i++) {
+            width[i] = (int) Math.max(width[i], header[i].length());
+        }
+
+        for (int i = 0; i < footer.length; i++) {
+            width[i] = (int) Math.max(width[i], footer[i].length());// line length
+        }
+
+        return width;
     }
 
     private void buildSeparator(StringBuilder stringBuilder, int lineLength) {
