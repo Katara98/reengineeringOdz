@@ -66,8 +66,9 @@ public class ShoppingCart2 {
      * if no items in cart returns "No items." string.
      */
     public String formatTicket() {
-        if (items.size() == 0)
+        if (items.size() == 0) {
             return "No items.";
+        }
         List<String[]> lines = new ArrayList<String[]>();
         String[] header = {"#", "Item", "Price", "Quan.", "Discount", "Total"};
         int[] align = new int[]{1, -1, 1, 1, 1, 1};
@@ -92,40 +93,50 @@ public class ShoppingCart2 {
         // formatting table
         // column max length
         int[] width = new int[]{0, 0, 0, 0, 0, 0};
-        for (String[] line : lines)
-            for (int i = 0; i < line.length; i++)
+        for (String[] line : lines) {
+            for (int i = 0; i < line.length; i++) {
                 width[i] = (int) Math.max(width[i], line[i].length());
-        for (int i = 0; i < header.length; i++)
+            }
+        }
+        for (int i = 0; i < header.length; i++) {
             width[i] = (int) Math.max(width[i], header[i].length());
-        for (int i = 0; i < footer.length; i++)
+        }
+        for (int i = 0; i < footer.length; i++) {
             width[i] = (int) Math.max(width[i], footer[i].length());// line length
+        }
         int lineLength = width.length - 1;
-        for (int w : width)
+        for (int w : width) {
             lineLength += w;
+        }
         StringBuilder sb = new StringBuilder();
         // header
-        for (int i = 0; i < header.length; i++)
+        for (int i = 0; i < header.length; i++) {
             appendFormatted(sb, header[i], align[i], width[i]);
+        }
         sb.append("\n");
         // separator
-        for (int i = 0; i < lineLength; i++)
+        for (int i = 0; i < lineLength; i++) {
             sb.append("-");
+        }
         sb.append("\n");
         // lines
         for (String[] line : lines) {
-            for (int i = 0; i < line.length; i++)
+            for (int i = 0; i < line.length; i++) {
                 appendFormatted(sb, line[i], align[i], width[i]);
+            }
             sb.append("\n");
         }
         if (lines.size() > 0) {
         // separator
-            for (int i = 0; i < lineLength; i++)
+            for (int i = 0; i < lineLength; i++) {
                 sb.append("-");
+            }
             sb.append("\n");
         }
         // footer
-        for (int i = 0; i < footer.length; i++)
+        for (int i = 0; i < footer.length; i++) {
             appendFormatted(sb, footer[i], align[i], width[i]);
+        }
         return sb.toString();
     }
 
@@ -136,17 +147,20 @@ public class ShoppingCart2 {
      * @param align -1 for align left, 0 for center and +1 for align right.
      */
     public static void appendFormatted(StringBuilder sb, String value, int align, int width) {
-        if (value.length() > width)
+        if (value.length() > width) {
             value = value.substring(0, width);
+        }
         int before = (align == 0)
                 ? (width - value.length()) / 2
                 : (align == -1) ? 0 : width - value.length();
         int after = width - value.length() - before;
-        while (before-- > 0)
+        while (before-- > 0) {
             sb.append(" ");
+        }
         sb.append(value);
-        while (after-- > 0)
+        while (after-- > 0) {
             sb.append(" ");
+        }
         sb.append(" ");
     }
 }

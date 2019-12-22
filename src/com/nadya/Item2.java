@@ -78,8 +78,9 @@ public class Item2 {
                 discount = 0;
                 break;
             case SECOND_FREE:
-                if (quantity > 1)
+                if (quantity > 1) {
                     discount = 50;
+                }
                 break;
             case SALE:
                 discount = 70;
@@ -88,8 +89,9 @@ public class Item2 {
 
         if (discount < 80) {
             discount += quantity / 10;
-            if (discount > 80)
+            if (discount > 80) {
                 discount = 80;
+            }
         }
 
         return discount;
