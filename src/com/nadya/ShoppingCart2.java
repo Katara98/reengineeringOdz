@@ -126,13 +126,11 @@ public class ShoppingCart2 {
             }
             sb.append("\n");
         }
-        if (lines.size() > 0) {
         // separator
-            for (int i = 0; i < lineLength; i++) {
-                sb.append("-");
-            }
-            sb.append("\n");
+        for (int i = 0; i < lineLength; i++) {
+            sb.append("-");
         }
+        sb.append("\n");
         // footer
         for (int i = 0; i < footer.length; i++) {
             appendFormatted(sb, footer[i], align[i], width[i]);
